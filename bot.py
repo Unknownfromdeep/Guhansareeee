@@ -395,8 +395,8 @@ async def chapter_click(client, data, chat_id):
         options = options.output if options else (1 << 30) - 1
 
         caption = '\n'.join([
-            f'{chapter.manga.name} - {chapter.name}',
-            f'{chapter.get_url()}'
+            f'<b>➥{chapter.manga.name} // {chapter.name}</b>',
+            f'<b>➥@Manga_Manhwa_Hub</b>'
         ])
 
         download = not chapterFile
@@ -410,7 +410,7 @@ async def chapter_click(client, data, chat_id):
             if not chapter.pictures:
                 return await bot.send_message(chat_id, f'There was an error parsing this chapter or chapter is missing' +
                                               f', please check the chapter at the web\n\n{caption}')
-            ch_name = clean(f'{clean(chapter.manga.name, 25)} - {chapter.name}', 45)
+            ch_name = clean(f'{clean(chapter.manga.name, 15)} - {chapter.name}', 45)
             try:
                 pdf, thumb_path = fld2pdf(pictures_folder, ch_name)
             except Exception as e:
@@ -443,10 +443,10 @@ async def chapter_click(client, data, chat_id):
 
         chapterFile = await db.get(ChapterFile, chapter.url)
 
-        caption = f'{chapter.manga.name} - {chapter.name}\n'
+        caption = f''<b>➥{chapter.manga.name} // {chapter.name}</b>\n'
         if options & OutputOptions.Telegraph:
             caption += f'[Read on telegraph]({chapterFile.telegraph_url})\n'
-        caption += f'[Read on website]({chapter.get_url()})'
+        caption += f'<b>➥@Manga_Manhwa_Hub</b>'
         media_docs = []
         if options & OutputOptions.PDF:
             media_docs.append(InputMediaDocument(chapterFile.file_id))
@@ -647,7 +647,7 @@ async def update_mangas():
     blocked = set()
     for url, chapter_list in updated.items():
         for chapter in chapter_list:
-            print(f'{chapter.manga.name} - {chapter.name}')
+            print(f'<b>➥{chapter.manga.name} // {chapter.name}</b>')
             for sub in subs_dictionary[url]:
                 if sub in blocked:
                     continue
