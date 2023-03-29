@@ -395,7 +395,7 @@ async def chapter_click(client, data, chat_id):
         options = options.output if options else (1 << 30) - 1
 
         caption = '\n'.join([
-            f'<b>➥{chapter.manga.name} // {chapter.name}</b>',
+            f'<b>➦{chapter.manga.name} // {chapter.name}</b>',
             f'<b>➥@Manga_Manhwa_Hub</b>'
         ])
 
@@ -443,7 +443,7 @@ async def chapter_click(client, data, chat_id):
 
         chapterFile = await db.get(ChapterFile, chapter.url)
 
-        caption = f'➥<b>{chapter.manga.name} // {chapter.name}</b>\n'
+        caption = f'➦<b>{chapter.manga.name} // {chapter.name}</b>\n'
         if options & OutputOptions.Telegraph:
             caption += f'[Read on telegraph]({chapterFile.telegraph_url})\n'
         caption += f'<b>➥@Manga_Manhwa_Hub</b>'
@@ -647,7 +647,7 @@ async def update_mangas():
     blocked = set()
     for url, chapter_list in updated.items():
         for chapter in chapter_list:
-            print(f'<b>➥{chapter.manga.name} // {chapter.name}</b>')
+            print(f'<b>➦{chapter.manga.name} // {chapter.name}</b>')
             for sub in subs_dictionary[url]:
                 if sub in blocked:
                     continue
